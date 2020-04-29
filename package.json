@@ -1,0 +1,12 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@now/node": "^1.5.1",
+    "apollo-server": "^2.12.0",
+    "apollo-server-micro": "^2.12.0",
+    "graphql": "^15.0.0"
+  }
+}
