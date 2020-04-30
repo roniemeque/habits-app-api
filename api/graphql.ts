@@ -19,7 +19,7 @@ const cors = Cors({
 
 const handler = async (req: NowRequest, res: NowResponse) => {
   if (req.method === "OPTIONS") {
-    send(res, 200);
+    return send(res, 200);
   }
 
   const server = new ApolloServer({
