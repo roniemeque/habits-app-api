@@ -2,28 +2,38 @@ import { gql } from "apollo-server-micro";
 
 const typeDefs = gql`
   type User {
-    id: ID!
+    _id: ID!
     name: String!
     email: String!
-    objectives: [Objective]
+    goals: [Goal]
   }
 
-  type CompletedDay {
-    objective: ID!
-    date: String!
-  }
-
-  type Objective {
-    id: ID!
+  type Goal {
+    _id: ID!
     title: String!
     icon: String
-    owner: ID
+    owner: User
     length: Int
-    daysCompleted: [CompletedDay]
+    daysCompleted: [String]
+    status: String
   }
 
   type Query {
-    objectives: [Objective]
+    goals(userId: ID!): [Goal]
+    goal(goalId: ID!): Goal
+  }
+
+  type Mutation {
+    createGoal(title: String!, icon: String, userId: ID!, length: Int!): Goal
+    updateGoal(
+      goalId: ID!
+      title: String
+      icon: String
+      userId: ID
+      length: Int
+      daysCompleted: [String]
+      status: String
+    ): Goal
   }
 `;
 

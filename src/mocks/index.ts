@@ -1,6 +1,6 @@
-export const objectives = [
+export const goalsMock = [
   {
-    id: 1,
+    _id: 1,
     title: "Caminhar",
     icon: "🏃‍♂️",
     owner: {
@@ -8,16 +8,7 @@ export const objectives = [
       name: "Ronie",
       email: "roniemeque@icloud.com",
     },
-    daysCompleted: [
-      {
-        id: 1,
-        date: "2020-04-28",
-      },
-      {
-        id: 2,
-        date: "2020-04-29",
-      },
-    ],
+    daysCompleted: ["2020-04-29", "2020-04-30"],
     length: 21,
   },
 ];
