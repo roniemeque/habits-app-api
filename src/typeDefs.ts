@@ -13,7 +13,7 @@ const typeDefs = gql`
     title: String!
     icon: String
     owner: User
-    length: Int
+    daysLength: Int
     daysCompleted: [String]
     status: String
   }
@@ -24,13 +24,18 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createGoal(title: String!, icon: String, userId: ID!, length: Int!): Goal
+    createGoal(
+      title: String!
+      icon: String
+      userId: ID!
+      daysLength: Int!
+    ): Goal
     updateGoal(
       goalId: ID!
       title: String
       icon: String
       userId: ID
-      length: Int
+      daysLength: Int
       daysCompleted: [String]
       status: String
     ): Goal
