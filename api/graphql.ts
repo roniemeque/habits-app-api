@@ -13,14 +13,8 @@ export const config = {
 };
 
 const cors = Cors({
-  allowHeaders: [
-    "Access-Control-Allow-Origin",
-    "Authorization",
-    "Content-Type",
-  ],
-  allowMethods: ["GET", "POST", "OPTIONS"],
-  origin: "*",
-  //origin: process.env.NODE_ENV === "production" ? "https://app" : "*",
+  origin:
+    process.env.NODE_ENV === "production" ? "https://habits.ronie.dev" : "*",
 });
 
 const handler = async (req: NowRequest, res: NowResponse) => {
