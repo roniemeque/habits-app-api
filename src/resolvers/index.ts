@@ -32,6 +32,10 @@ const mutations: ResolverMap = {
     );
     return value;
   },
+  deleteGoal: async (_, { goalId }, { db }) => {
+    await db.goals.findOneAndDelete({ _id: oid(goalId) });
+    return true;
+  },
 };
 
 interface Resolvers extends IResolvers {

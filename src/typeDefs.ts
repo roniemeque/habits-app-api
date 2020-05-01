@@ -39,6 +39,7 @@ const typeDefs = gql`
       daysCompleted: [String]
       status: String
     ): Goal
+    deleteGoal(goalId: ID!): Boolean
   }
 `;
 
