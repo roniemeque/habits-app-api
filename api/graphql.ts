@@ -24,6 +24,7 @@ const handler = async (req: NowRequest, res: NowResponse) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    playground: true,
   });
 
   return server.createHandler({ path: "/api/graphql" })(req, res);
