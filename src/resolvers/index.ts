@@ -14,7 +14,10 @@ interface ResolverMap {
 
 const queries: ResolverMap = {
   goals: async (_, __) => {
-    const goals = await allItemsByIndex("all_goals_by_user", "1");
+    const goals = await allItemsByIndex(
+      "all_goals_by_user",
+      "5eaa296e164245257d5894a2"
+    );
     console.log(goals);
 
     return goals;
