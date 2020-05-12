@@ -1,18 +1,33 @@
-import { ResolverMap } from "../ts/apollo";
 import { IResolvers } from "apollo-server-micro";
-import { oid } from "../helpers/database";
+import {
+  createItem,
+  getItemById,
+  allItemsByIndex,
+  updateItem,
+} from "../helpers/fauna";
+
+type ResolverFn = (parent: any, args: any, ctx: any) => any;
+
+interface ResolverMap {
+  [field: string]: ResolverFn;
+}
 
 const queries: ResolverMap = {
-  goals: async (_, __, { db }) => await db.goals.find().toArray(),
-  goal: async (_, { goalId }: { goalId: string }, { db }) =>
-    await db.goals.findOne({ _id: oid(goalId) }),
+  goals: async (_, __) => {
+    const goals = await allItemsByIndex("all_goals_by_user", "1");
+    console.log(goals);
+
+    return goals;
+  },
+  goal: async (_, { goalId }: { goalId: string }) => {
+    const goal = await getItemById("goals", goalId);
+    return goal;
+  },
 };
 
 const mutations: ResolverMap = {
-  createGoal: async (_, args, { db }) => {
-    const {
-      ops: [goal],
-    } = await db.goals.insertOne({
+  createGoal: async (_, args) => {
+    const goal = await createItem("goals", {
       ...args,
       daysCompleted: [],
       status: "new",
@@ -20,20 +35,14 @@ const mutations: ResolverMap = {
 
     return goal;
   },
-  updateGoal: async (_, args, { db }) => {
+  updateGoal: async (_, args) => {
     const { goalId, ...updatable } = args;
+    const goal = await updateItem("goals", goalId, updatable);
 
-    const { value } = await db.goals.findOneAndUpdate(
-      { _id: oid(goalId) },
-      { $set: { ...updatable } },
-      {
-        returnOriginal: false,
-      }
-    );
-    return value;
+    return goal;
   },
-  deleteGoal: async (_, { goalId }, { db }) => {
-    await db.goals.findOneAndDelete({ _id: oid(goalId) });
+  deleteGoal: async (_, { goalId }) => {
+    //await db.goals.findOneAndDelete({ _id: oid(goalId) });
     return true;
   },
 };

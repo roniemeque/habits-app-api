@@ -4,7 +4,6 @@ import Cors from "micro-cors";
 import { ApolloServer } from "apollo-server-micro";
 import typeDefs from "../src/typeDefs";
 import resolvers from "../src/resolvers";
-import getCollection from "../src/lib/database";
 
 export const config = {
   api: {
@@ -25,14 +24,6 @@ const handler = async (req: NowRequest, res: NowResponse) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: async () => {
-      return {
-        db: {
-          users: await getCollection("users"),
-          goals: await getCollection("goals"),
-        },
-      };
-    },
   });
 
   return server.createHandler({ path: "/api/graphql" })(req, res);
